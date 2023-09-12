@@ -21,8 +21,6 @@ export class UserDto implements Readonly<UserDto> {
     @IsString()
     fullname: string;
 
-    @IsNotEmpty()
-    @IsString()
     photo: string;
 
     @IsNotEmpty()

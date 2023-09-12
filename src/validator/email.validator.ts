@@ -18,7 +18,7 @@ export function IsEmailExists(validationOptions?: ValidationOptions) {
 @ValidatorConstraint({ name: 'EmailExists', async: true })
 @Injectable()
 export class EmailExistsValidation implements ValidatorConstraintInterface {
-    constructor(private readonly userService: UserService) { }
+    constructor(private userService: UserService) { }
 
     async validate(value: string): Promise<boolean> {
         return this.userService.findUserByEmail(value).then(user => {

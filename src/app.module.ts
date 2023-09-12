@@ -11,6 +11,9 @@ import { UserService } from './auth/user.service';
 import { UserController } from './auth/user.controller';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/auth.guard';
+import { UsernameExistsValidation } from './validator/username.validator';
 
 @Module({
   imports: [
@@ -23,7 +26,12 @@ import { jwtConstants } from './auth/constants';
     }),
   ],
   controllers: [AppController, AuthController, UserController],
-  providers: [AppService, AuthService, UserService, EmailExistsValidation],
+  providers: [AppService, AuthService, UserService, EmailExistsValidation, UsernameExistsValidation,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
   exports: [UserService]
 })
 export class AppModule {}

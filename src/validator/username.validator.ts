@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface, registerDecorator } from "class-validator";
-import { AuthService } from "../auth/token.service";
 import { UserService } from "src/auth/user.service";
 
 export function IsUsernameExists(validationOptions?: ValidationOptions) {
@@ -18,7 +17,7 @@ export function IsUsernameExists(validationOptions?: ValidationOptions) {
 @ValidatorConstraint({ name: 'UsernameExists', async: true })
 @Injectable()
 export class UsernameExistsValidation implements ValidatorConstraintInterface {
-    constructor(private readonly userService: UserService) { }
+    constructor(private userService: UserService) { }
 
     async validate(value: string): Promise<boolean> {
         return this.userService.findUserByUsername(value).then(user => {
